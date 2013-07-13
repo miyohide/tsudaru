@@ -35,3 +35,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 
+group :test do
+  gem 'shoulda-matchers'
+end
+
