@@ -1,0 +1,18 @@
+<%= form_for(@tweet) do |f| %>
+  <div class="field">
+    <%= f.label :message %><br />
+    <%= f.text_area :message %>
+  </div>
+  <div class="field">
+    <%= label_tag 'tweet_opt[hashtag]', 'hashtag' %>
+    <%= text_field_tag 'tweet_opt[hashtag]', @hashtag %>
+  </div>
+  <div class="field">
+    <%= label_tag 'tweet_opt[speaker]', 'speaker' %>
+    <%= text_field_tag 'tweet_opt[speaker]', @speaker %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
