@@ -7,14 +7,15 @@ class TweetsController < ApplicationController
    def create
       @speaker = params[:tweet_opt][:speaker]
       @hashtag = params[:tweet_opt][:hashtag]
-      message = "#{@speaker}「" + params[:tweet][:message] + "」 #{@hashtag}"
 
-      @tweet = Tweet.new(message: message)
+      @tweet = Tweet.new(message: Tweet.create_full_message(params))
 
       if @tweet.save
          @tweet = Tweet.new
+
          render action: 'new'
       else
+         @tweet.message = params[:tweet][:message]
          render action: 'new'
       end
    end

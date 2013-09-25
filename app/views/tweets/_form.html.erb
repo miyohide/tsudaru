@@ -1,4 +1,5 @@
 <%= form_for(@tweet) do |f| %>
+   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.label :message %><br />
     <%= f.text_area :message %>
