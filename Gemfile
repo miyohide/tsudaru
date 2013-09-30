@@ -18,12 +18,12 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass', '~> 2.3.2.2'
 end
 
 gem 'jquery-rails'
 
 gem 'thin'
-
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
