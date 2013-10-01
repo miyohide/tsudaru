@@ -1,21 +1,29 @@
-現在の文字数は<span id="tweet_count"></span>です。
-
-<%= form_for(@tweet, html: { class: "form-horizontal" }) do |f| %>
-   <%= render 'shared/error_messages', object: f.object %>
-  <div class="control-group">
-    <%= f.label :message, class: "control-label" %><br />
-    <%= f.text_area :message, size: "50x3" %>
-  </div>
-  <div class="control-group">
-    <%= label_tag 'tweet_opt[hashtag]', 'hashtag', class: "control-label" %>
-    <%= text_field_tag 'tweet_opt[hashtag]', @hashtag %>
-  </div>
-  <div class="control-group">
-    <%= label_tag 'tweet_opt[speaker]', 'speaker', class: "control-label" %>
-    <%= text_field_tag 'tweet_opt[speaker]', @speaker %>
-  </div>
-  <div class="form-actions">
-    <%= f.submit("送信", class: "btn btn-primary") %>
-  </div>
-<% end %>
-
+現在の文字数は「<strong><span id="tweet_count" class="text-info"></span></strong>」です。
+<div class="row-fluid">
+    <%= form_for(@tweet, html: { class: "form-horizontal" }) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="control-group">
+            <div class="span2">
+                <%= f.label :message, 'ツイート', class: "control-label" %>
+            </div>
+            <div class="controls span10">
+                <%= f.text_area :message, rows: 3, class: "controls span10" %>
+            </div>
+        </div>
+        <div class="control-group">
+            <span class="control-label span1">　</span>
+            <div class="controls form-inline">
+                <%= label_tag 'tweet_opt[hashtag]', 'ハッシュタグ' %>
+                <%= text_field_tag 'tweet_opt[hashtag]', @hashtag %>
+                <%= label_tag 'tweet_opt[speaker]', '発表者' %>
+                <%= text_field_tag 'tweet_opt[speaker]', @speaker %>
+            </div>
+        </div>
+        <div class="form-actions">
+            <div class="controls">
+                <%= f.submit("送信", class: "btn btn-primary") %>
+                <%= link_to "一覧に戻る", tweets_path, class: "btn" %>
+            </div>
+        </div>
+    <% end %>
+</div>
