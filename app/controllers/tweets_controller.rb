@@ -11,6 +11,7 @@ class TweetsController < ApplicationController
       @tweet = Tweet.new(message: Tweet.create_full_message(params))
 
       if @tweet.save
+         @tweet.delay.tweet
          @tweet = Tweet.new
 
          render action: 'new'
