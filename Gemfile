@@ -31,6 +31,7 @@ end
 
 gem 'twitter'
 gem 'delayed_job_active_record'
+gem 'settingslogic'
 
 group :test do
   gem 'shoulda-matchers'
