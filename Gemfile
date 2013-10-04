@@ -30,10 +30,7 @@ group :test, :development do
 end
 
 gem 'twitter'
-gem 'sidekiq'
-
-gem 'sinatra', require: false
-gem 'slim'
+gem 'delayed_job_active_record'
 
 group :test do
   gem 'shoulda-matchers'
