@@ -1,0 +1,15 @@
+defaults: &defaults
+   twitter_key:        <%= ENV["TWITTER_CONSUMER_KEY"] %>
+   twitter_secret:     <%= ENV["TWITTER_CONSUMER_SECRET"] %>
+   oauth_token:        <%= ENV["OAUTH_TOKEN"] %>
+   oauth_token_secret: <%= ENV["OAUTH_TOKEN_SECRET"] %>
+
+development:
+   <<: *defaults
+
+test:
+   <<: *defaults
+
+production:
+   <<: *defaults
+
