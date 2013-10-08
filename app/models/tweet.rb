@@ -9,12 +9,8 @@ class Tweet < ActiveRecord::Base
   end
 
   def tweet
-     if rand(10) > 4
-        self.tweeted = true
-     else
-        self.tweeted = false
-     end
+     Twitter.update(self.message)
+     self.tweeted = true
      self.save
-     sleep 3
   end
 end
