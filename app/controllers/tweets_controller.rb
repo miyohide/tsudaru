@@ -1,6 +1,10 @@
 # coding: utf-8
 class TweetsController < ApplicationController
    def new
+      djs = DelayedJob.all
+      @all_delayed_job_size = djs.size
+      @not_exec_delayed_job_size = djs.select { |dj| dj.failed_at.nil? }.size
+      @fail_delayed_job_size = djs.select { |dj| dj.failed_at.present? }.size
       @tweet = Tweet.new
    end
 
@@ -12,6 +16,12 @@ class TweetsController < ApplicationController
 
       if @tweet.save
          @tweet.delay.tweet
+
+         djs = DelayedJob.all
+         @all_delayed_job_size = djs.size
+         @not_exec_delayed_job_size = djs.select { |dj| dj.failed_at.nil? }.size
+         @fail_delayed_job_size = djs.select { |dj| dj.failed_at.present? }.size
+
          @tweet = Tweet.new
 
          render action: 'new'

@@ -10,7 +10,11 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span2">
-                サイドバーには何かを表示する
+               <ul>
+                  <li>ジョブ数：<%= @all_delayed_job_size %></li>
+                  <li>内、未実行数：<%= @not_exec_delayed_job_size %></li>
+                  <li>内、エラー数：<%= @fail_delayed_job_size %></li>
+               </ul>
             </div>
             <div class="span10">
                 <%= yield %>
