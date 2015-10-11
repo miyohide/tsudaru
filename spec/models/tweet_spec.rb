@@ -2,26 +2,43 @@
 require 'spec_helper'
 
 describe Tweet do
-   describe 'Validations' do
-      it { should ensure_length_of(:message).is_at_most(140) }
-   end
+  describe 'Validations' do
+    it { should ensure_length_of(:message).is_at_most(140) }
+  end
 
-   describe '.create_full_message' do
-      let(:params) { { tweet_opt: { speaker: "speaker", hashtag: "#hashtag" }, tweet: { message: "message" } } }
-      context 'all parameters are fill' do
-         it { expect(Tweet.create_full_message(params)).to eq "speaker「message」 #hashtag" }
+  describe "self.create_full_message" do
+    let(:params) { {tweet_opt: {speaker: "speaker", hashtag: "#hashtag"}, tweet: {message: "message"} } }
+    it "return message" do
+      Tweet.create_full_message(params).should eq("speaker「message」 #hashtag")
+    end
+  end
+
+  describe "tweet" do
+    let(:tweet) { Tweet.new(message: "foobar") }
+    # ツイートが成功した場合
+    context "tweet success" do
+      before do
+        Twitter.stub(:update)
+        tweet.tweet
+      end
+      it { tweet.tweeted.should eq true }
+    end
+    # ツイートが失敗したが、返ってきたエラーが重複エラーだった場合
+    context "tweet fail because duplicate error." do
+      before do
+        Twitter.stub(:update).and_raise(Twitter::Error::Forbidden, "Status is a duplicate")
+        tweet.tweet
       end
 
-      context 'speaker is empty' do
-         it { params[:tweet_opt][:speaker] = ''; expect(Tweet.create_full_message(params)).to eq "「message」 #hashtag" }
+      it { tweet.tweeted.should eq true }
+    end
+    # ツイートが失敗し、返ってきたエラーが重複エラーでなかった場合
+    context "tweet fail because does not duplicate error." do
+      before do
+        Twitter.stub(:update).and_raise(Twitter::Error::Forbidden, "Status is a foobar")
       end
 
-      context 'hashtag is empty' do
-         it { params[:tweet_opt][:hashtag] = ''; expect(Tweet.create_full_message(params)).to eq "speaker「message」 " }
-      end
-
-      context 'message is empty' do
-         it { params[:tweet][:message] = ''; expect(Tweet.create_full_message(params)).to eq "speaker「」 #hashtag" }
-      end
-   end
+      it { expect { tweet.tweet }.to raise_error(Twitter::Error::Forbidden, "Status is a foobar") }
+    end
+  end
 end
