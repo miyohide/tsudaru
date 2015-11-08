@@ -24,8 +24,9 @@ gem 'twitter'
 gem 'delayed_job_active_record'
 gem 'settingslogic'
 gem 'delayed_job_web'
-gem 'dotenv'
+gem 'dotenv-rails'
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'test-unit'
 end
