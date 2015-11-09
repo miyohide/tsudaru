@@ -10,7 +10,7 @@ class Tweet < ActiveRecord::Base
   end
 
   def tweet
-     Twitter.update(self.message)
+     TwitterAPI.new.client.update(self.message)
      self.tweeted = true
      self.save
   rescue => e
