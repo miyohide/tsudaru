@@ -30,3 +30,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'test-unit'
 end
+
+group :development do
+  gem "quiet_assets"
+end
