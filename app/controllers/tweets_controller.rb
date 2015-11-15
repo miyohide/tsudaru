@@ -1,14 +1,12 @@
 # coding: utf-8
 class TweetsController < ApplicationController
    def new
-      djs = DelayedJob.all
-      @all_delayed_job_size = djs.size
-      @not_exec_delayed_job_size = djs.select { |dj| dj.failed_at.nil? }.size
-      @fail_delayed_job_size = djs.select { |dj| dj.failed_at.present? }.size
       @tweet = Tweet.new
+      @delayed_jobs = DelayedJob.order("created_at DESC").limit(5)
    end
 
    def create
+     # 次のツイートの時にでも使う項目を設定
       @speaker = params[:tweet_opt][:speaker]
       @hashtag = params[:tweet_opt][:hashtag]
 
@@ -17,12 +15,8 @@ class TweetsController < ApplicationController
       if @tweet.save
          @tweet.delay.tweet
 
-         djs = DelayedJob.all
-         @all_delayed_job_size = djs.size
-         @not_exec_delayed_job_size = djs.select { |dj| dj.failed_at.nil? }.size
-         @fail_delayed_job_size = djs.select { |dj| dj.failed_at.present? }.size
-
          @tweet = Tweet.new
+         @delayed_jobs = DelayedJob.order("created_at DESC").limit(5)
 
          render action: 'new'
       else
