@@ -1,4 +1,6 @@
 <%= render 'form' %>
 
-<%= link_to "ジョブモニタリング", delayed_job_path, target: "_blank" %>
-
+<% if @delayed_jobs.size > 0 %>
+  <%= render 'recent_job_monitor' %>
+<% end %>
+<%# link_to "ジョブモニタリング", delayed_job_path, target: "_blank" %>

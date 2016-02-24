@@ -1,0 +1,19 @@
+<table class="table">
+  <tr>
+    <th>作成日時</th>
+    <th>実行日時</th>
+    <th>メッセージ</th>
+    <th>試行回数</th>
+    <th></th>
+  </tr>
+
+<% @delayed_jobs.each do |delayed_job| %>
+  <tr>
+    <td><%= delayed_job.created_at.in_time_zone("Tokyo") %></td>
+    <td><%= delayed_job.run_at.in_time_zone("Tokyo") %></td>
+    <td><%= truncate(YAML.load_dj(delayed_job.handler).message, length: 10) %></td>
+    <td><%= delayed_job.attempts %></td>
+    <td><%# link_to '削除', delayed_job_path(delayed_job), confirm: '削除しますか', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
