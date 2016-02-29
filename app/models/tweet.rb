@@ -13,8 +13,8 @@ class Tweet < ActiveRecord::Base
     TwitterAPI.new.client.update(self.message)
     self.tweeted = true
     self.save
-  rescue Twitter::Error::Forbidden => e
-    if e.wrapped_exception.start_with?("Status is a duplicate")
+  rescue Twitter::Error => e
+    if e.code == Twitter::Error::DuplicateStatus
       self.tweeted = true
       self.save
     else
