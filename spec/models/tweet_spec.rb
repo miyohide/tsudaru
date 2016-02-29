@@ -3,13 +3,13 @@ require 'spec_helper'
 
 describe Tweet do
   describe 'Validations' do
-    it { should ensure_length_of(:message).is_at_most(140) }
+    it { should validate_length_of(:message).is_at_most(140) }
   end
 
   describe "self.create_full_message" do
     let(:params) { {tweet_opt: {speaker: "speaker", hashtag: "#hashtag"}, tweet: {message: "message"} } }
     it "return message" do
-      Tweet.create_full_message(params).should eq("speaker「message」 #hashtag")
+      expect(Tweet.create_full_message(params)).to eq("speaker「message」 #hashtag")
     end
   end
 
