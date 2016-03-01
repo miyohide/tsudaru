@@ -29,6 +29,7 @@ gem 'dotenv-rails'
 group :test do
   gem 'shoulda-matchers'
   gem 'test-unit'
+  gem 'simplecov', :require => false
 end
 
 group :development do
