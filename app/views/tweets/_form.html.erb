@@ -13,10 +13,10 @@
         <div class="control-group">
             <span class="control-label span1">　</span>
             <div class="controls form-inline">
-                <%= label_tag 'tweet_opt[hashtag]', 'ハッシュタグ' %>
-                <%= text_field_tag 'tweet_opt[hashtag]', @hashtag %>
-                <%= label_tag 'tweet_opt[speaker]', '発表者' %>
-                <%= text_field_tag 'tweet_opt[speaker]', @speaker %>
+                <%= f.label :hash_tag, "ハッシュタグ" %>
+                <%= f.text_field :hashtag, value: @hashtag %>
+                <%= f.label :speaker, "発表者" %>
+                <%= f.text_field :speaker, value: @speaker %>
             </div>
         </div>
         <div class="form-actions">

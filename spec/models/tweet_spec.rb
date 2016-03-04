@@ -2,19 +2,8 @@
 require 'spec_helper'
 
 describe Tweet do
-  describe 'Validations' do
-    it { should validate_length_of(:message).is_at_most(140) }
-  end
-
-  describe "self.create_full_message" do
-    let(:params) { {tweet_opt: {speaker: "speaker", hashtag: "#hashtag"}, tweet: {message: "message"} } }
-    it "return message" do
-      expect(Tweet.create_full_message(params)).to eq("speaker「message」 #hashtag")
-    end
-  end
-
   describe "tweet" do
-    let(:tweet) { Tweet.new(message: "foobar") }
+    let(:tweet) { Tweet.new(message: "foobar", hashtag: "#hashtag", speaker: "speaker") }
     # ツイートが成功した場合
     context "tweet success" do
       it "tweeted flag is true" do

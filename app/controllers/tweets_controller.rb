@@ -7,10 +7,10 @@ class TweetsController < ApplicationController
 
    def create
      # 次のツイートの時にでも使う項目を設定
-      @speaker = params[:tweet_opt][:speaker]
-      @hashtag = params[:tweet_opt][:hashtag]
+      @speaker = params[:tweet][:speaker]
+      @hashtag = params[:tweet][:hashtag]
 
-      @tweet = Tweet.new(message: Tweet.create_full_message(params))
+      @tweet = Tweet.new(params[:tweet])
 
       if @tweet.save
          @tweet.delay.tweet
