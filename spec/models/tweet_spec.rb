@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Tweet do
-  describe "tweet" do
+  describe "#tweet" do
     let(:tweet) { Tweet.new(message: "foobar", hashtag: "#hashtag", speaker: "speaker") }
     # ツイートが成功した場合
     context "tweet success" do
