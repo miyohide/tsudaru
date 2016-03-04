@@ -28,4 +28,21 @@ describe Tweet do
       end
     end
   end
+
+  describe "#tweet_message_less_than_140" do
+    context "(tweet message).length > 140" do
+      subject(:tweet) { Tweet.new(message: "a" * 137, speaker: "b", hashtag: "c") }
+      it "raise validation error" do
+        expect(tweet.valid?).to be_falsey
+        expect(tweet.errors.messages).to have_key(:message)
+      end
+    end
+
+    context "(tweet message).length <= 140" do
+      subject(:tweet) { Tweet.new(message: "a" * 136, speaker: "b", hashtag: "c") }
+      it "raise validation error" do
+        expect(tweet.valid?).to be_truthy
+      end
+    end
+  end
 end
